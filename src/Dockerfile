@@ -1,4 +1,4 @@
-FROM ubuntu:19.10
+FROM ubuntu:20.04
 
 ARG DEBIAN_FRONTEND=noninteractive
 
@@ -12,21 +12,21 @@ RUN apt-get update && apt-get install -y curl gnupg2 && \
                                          python3-dev libboost-all-dev cmake libeigen3-dev openjdk-8-jdk-headless sbt \
     && rm -rf /var/lib/apt/lists/*
 
-RUN git clone https://github.com/cliffordwolf/icestorm.git icestorm \
-    && cd icestorm && git checkout 0ec00d892a91cc68e45479b46161f649caea2933 \
+RUN git clone --recursive https://github.com/cliffordwolf/icestorm.git icestorm \
+    && cd icestorm && git checkout c495861c19bd0976c88d4964f912abe76f3901c3 \
     && make -j$(nproc) \
     && make install \
     && cd .. && rm -rf icestorm
 
-RUN git clone https://github.com/YosysHQ/nextpnr nextpnr \
-    && cd nextpnr && git checkout ab7078d574713280e11af7d6f0e7b7ecf7a492c0 \
+RUN git clone --recursive https://github.com/YosysHQ/nextpnr nextpnr \
+    && cd nextpnr && git checkout 5feea4497f416eafdf54f34c2b9c67ddcef3f26f \
     && cmake -DARCH=ice40 -DBUILD_GUI=OFF -DCMAKE_INSTALL_PREFIX=/usr/local . \
     && make -j$(nproc) \
     && make install \
     && cd .. && rm -rf nextpnr
 
-RUN git clone https://github.com/cliffordwolf/yosys.git yosys \
-    && cd yosys && git checkout de6006fbc82406d2942d0740bcfc7a4418070c9b \
+RUN git clone --recursive https://github.com/cliffordwolf/yosys.git yosys \
+    && cd yosys && git checkout 092e923330ce23adffa7843a27bdba8a0b139e58 \
     && make -j$(nproc) \
     && make install \
     && cd .. && rm -rf yosys
