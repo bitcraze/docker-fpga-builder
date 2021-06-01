@@ -19,14 +19,14 @@ RUN git clone --recursive https://github.com/cliffordwolf/icestorm.git icestorm 
     && cd .. && rm -rf icestorm
 
 RUN git clone --recursive https://github.com/YosysHQ/nextpnr nextpnr \
-    && cd nextpnr && git checkout 5feea4497f416eafdf54f34c2b9c67ddcef3f26f \
+    && cd nextpnr && git checkout 24ae205f20f0e1a0326e48002ab14d5bacfca1ef \
     && cmake -DARCH=ice40 -DBUILD_GUI=OFF -DCMAKE_INSTALL_PREFIX=/usr/local . \
     && make -j$(nproc) \
     && make install \
     && cd .. && rm -rf nextpnr
 
 RUN git clone --recursive https://github.com/cliffordwolf/yosys.git yosys \
-    && cd yosys && git checkout 092e923330ce23adffa7843a27bdba8a0b139e58 \
+    && cd yosys && git checkout 6d5d8457883e5de8df58997d95373d3433b781bf \
     && make -j$(nproc) \
     && make install \
     && cd .. && rm -rf yosys
